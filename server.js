@@ -14,15 +14,12 @@ const addNumbers = (number1, number2) => {
   return result;
 };
 
-app.get("/addTwoNumbers", (req,res) => {
-    let number1 = req.query.number1;
-    let number2 = req.query.number2;
-    let result = addNumbers(number1,number2)
-    res.json()
-
-
-})
-
+app.get("/addTwoNumbers", (req, res) => {
+  let number1 = req.query.number1;
+  let number2 = req.query.number2;
+  let result = addNumbers(number1, number2);
+  res.json({ statusCode: 200, data: result, message: "Success" });
+});
 
 app.listen(port, () => {
   console.log("App listening to: " + port);
