@@ -1,10 +1,10 @@
-function changeText() {
-  var textsArray = ["Hi", "What", "Is", "Your", "Name"];
-  var number = getRandomNumberBetween(0, textsArray.length - 1);
-  console.log("Index: ", number);
-  document.getElementById("heading").innerHTML = textsArray[number];
+const clickMe = () => {
+  alert("Thanks for clicking me. Hope you have a nice day!")
 }
 
-function getRandomNumberBetween(min, max) {
-  return Math.floor(Math.random() * (max - min + 1) + min);
-}
+$(document).ready(function(){
+  $('.materialboxed').materialbox();
+  $('#clickMeButton').click(()=>{
+      clickMe();
+  })
+});
