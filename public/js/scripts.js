@@ -1,36 +1,68 @@
-const cardList = [
-  {
-      title: "Arthur",
-      image: "images/Arthur.jpg",
-      link: "Photo of Arthur with a toy",
-      desciption: "Is he not cute"
-  },
-  {
-      title: "Gwen",
-      image: "images/Gwen.jpg",
-      link: "Photo of Gwen",
-      desciption: "But is Gwen cuter"
-  }
-]
-const clickMe = () => {
-  alert("Thanks for clicking me. Hope you have a nice day!")
-}
+// const cardList = [
+//   {
+//       title: "Arthur",
+//       image: "images/Arthur.jpg",
+//       link: "Photo of Arthur with a toy",
+//       desciption: "Is he not cute"
+//   },
+//   {
+//       title: "Gwen",
+//       image: "images/Gwen.jpg",
+//       link: "Photo of Gwen",
+//       desciption: "But is Gwen cuter"
+//   }
+// ]
+
+const getProjects = () => {
+  $.get("/api/projects", (response) => {
+    if (response.statusCode == 200) {
+      addCards(response.data);
+    }
+  });
+};
+
+// const clickMe = () => {
+//   alert("Thanks for clicking me. Hope you have a nice day!");
+// };
+
+// const submitForm = () => {
+//     let formData = {};
+//     formData.first_name = $('#first_name').val();
+//     formData.last_name = $('#last_name').val();
+//     formData.password = $('#password').val();
+//     formData.email = $('#email').val();
+
+//     console.log("Form Data Submitted: ", formData);
+// }
 
 const submitForm = () => {
-    let formData = {};
-    formData.first_name = $('#first_name').val();
-    formData.last_name = $('#last_name').val();
-    formData.password = $('#password').val();
-    formData.email = $('#email').val();
+  let formData = {};
+  formData.title = $("#title").val();
+  formData.image = $("#image").val();
+  formData.link = $("#link").val();
+  formData.desciption = $("#description").val();
 
-    console.log("Form Data Submitted: ", formData);
-}
+  console.log("Form Data Submitted: ", formData);
+  addProjectToApp(formData);
+};
+
+//ajax
+const addProjectToApp = (project) => {
+  $.ajax({
+    url: "/api/projects",
+    data: project,
+    type: "POST",
+    success: (result) => {
+      alert(result.message);
+      location.reload(); //used to reload the page
+    },
+  });
+};
 
 // Updated this I just prefer using a back tick for text and variables better for making multiple lines of clean html
 const addCards = (items) => {
-  items.forEach(item => {
-      let itemToAppend = 
-      `<div class="col s4 center-align">
+  items.forEach((item) => {
+    let itemToAppend = `<div class="col s4 center-align">
         <div class="card medium">
           <div class="card-image waves-effect waves-block waves-light"><img class="activator" src="${item.image}">
           </div>
@@ -44,17 +76,15 @@ const addCards = (items) => {
           </div>
         </div>
       </div>`;
-    $("#card-section").append(itemToAppend)
+    $("#card-section").append(itemToAppend);
   });
-}
+};
 
-$(document).ready(function(){
-    $('.materialboxed').materialbox();
-    $('#formSubmit').click(()=>{
-        submitForm();
-    })
-    addCards(cardList);
-    $('.modal').modal();
+$(document).ready(function () {
+  $(".materialboxed").materialbox();
+  $("#formSubmit").click(() => {
+    submitForm();
   });
-
-document.querySelector('.myclass')
+  getProjects();
+  $(".modal").modal();
+});
