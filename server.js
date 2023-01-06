@@ -2,16 +2,16 @@ var express = require("express");
 var app = express();
 var cors = require("cors");
 // let projectCollection;
-let dbConnect = require("./dbConnect");
-let projectRoutes = require("./routes/projectRoutes")
-
+//let dbConnect = require("./dbConnect");
+let projectRoutes = require("./routes/projectRoutes");
 
 app.use(express.static(__dirname + "/public"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cors());
-app.use('/api/projects', projectRoutes)
+// app.use("/api/projects", projectRoutes);
 
+app.use("/api", projectRoutes); //Understand how this works now befor it weas using /api/projects and directing all requests fo the projectRoutes file by chaing it to /api i can define differene get/posts requests in the other file.
 
 // //mongoDb connection
 // const MongoClient = require("mongodb").MongoClient;

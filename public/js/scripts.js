@@ -21,6 +21,16 @@ const getProjects = () => {
   });
 };
 
+//This is a test to see if how I can add more API calls for get/Post using the seperate route file. 
+const getProjectTest = () => {
+  $.get("/api/projectsTest", (response) => {
+    if (response.statusCode == 200) {
+      addCards(response.data);
+      console.log("This Ran?");
+    }
+  });
+};
+
 // const clickMe = () => {
 //   alert("Thanks for clicking me. Hope you have a nice day!");
 // };
@@ -86,5 +96,6 @@ $(document).ready(function () {
     submitForm();
   });
   getProjects();
+  getProjectTest();
   $(".modal").modal();
 });
